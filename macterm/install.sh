@@ -1,3 +1,4 @@
+#!/bin/zsh
 # MacTerm Installer V1.0
 # A program by Ruben
 # https://scstudios.tech/macterm
@@ -10,7 +11,6 @@ echo "
 ┗┛┗┛┗┛┗━━━┛┗━━┛━┗━━┛━┗━━┛┗┛━┗┻┻┛
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-#!/bin/zsh
 
 ###############################################
 # MacTerm Installer
@@ -36,6 +36,21 @@ echo "----------------A project by Ruben----------------"
 echo "----------https://scstudios.tech/macterm----------"
 echo "--------------------------------------------------"
 echo ""
+# -----------------------------
+# macOS check
+# -----------------------------
+if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "Thanks for showing intrest in MacTerm. Unfortunately, "
+    echo "MacTerm installer only runs on macOS."
+    echo "Detected OS: $(uname -s)"
+    echo "However, I am in the process of developing a version of this for other systems that use zsh. 
+(the main reason it is only compatible with mac is because it installs homebrew. that and the fact that it's called macterm)"
+    echo "see the projects section of my website to find out if I have made another version for other Linux distros"
+    echo "at https://scstudios.tech"
+    echo "Thanks!"
+    echo "Exiting..."
+    exit 1
+fi
 
 ###############################################
 # Fancy Spinner + Progress Bar Utilities
@@ -151,4 +166,7 @@ echo "==============================================="
 echo "           ✔ MacTerm Installer Complete!"
 echo "==============================================="
 echo "Open a new terminal window for PATH changes."
+echo "Thank you so much for installing this. I am a small developer (and I'm only in high school), so any support is helpful. Please share this with whoever you feel like. Thanks!
 echo ""
+sleep 8
+open -a Safari "https://scstudios.tech/macterm/thankyou"

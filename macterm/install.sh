@@ -1,7 +1,7 @@
 #!/bin/zsh
 # MacTerm Installer V1.0
 # A program by Ruben
-# https://scstudios.tech/macterm
+# https://scstudios.tech/projects/macterm
 echo "
 ┏━┓┏━┓━━━━━━━━━┏━━━━┓━━━━━━━━━━━
 ┃┃┗┛┃┃━━━━━━━━━┃┏┓┏┓┃━━━━━━━━━━━
@@ -169,4 +169,4 @@ echo "Open a new terminal window for PATH changes."
 echo "Thank you so much for installing this. I am a small developer (and I'm only in high school), so any support is helpful. Please share this with whoever you feel like. Thanks!
 echo ""
 sleep 8
-open -a Safari "https://scstudios.tech/macterm/thankyou"
+open -a Safari "https://scstudios.tech/projects/macterm/thankyou"

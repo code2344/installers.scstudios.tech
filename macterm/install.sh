@@ -105,13 +105,13 @@ progress_run() {
 }
 
 
-###############################################
-# REAL INSTALLER FUNCTIONS (YOUR ORIGINAL CODE)
-###############################################
+#####################
+# INSTALLER FUNCTIONS
+#####################
 
 progress_run "Prepending external .zshrc content" \
   "TEMP_FILE=\$(mktemp); \
-   curl -fsSL https://installers.scstudios.tech/macterm/.zshrc -o \"\$TEMP_FILE\"; \
+   curl -fsSL https://raw.githubusercontent.com/code2344/installers.scstudios.tech/refs/heads/main/macterm/.zshrc -o \"\$TEMP_FILE\"; \
    if ! grep -q \"scstudios\" ~/.zshrc 2>/dev/null; then \
        cat \"\$TEMP_FILE\" ~/.zshrc 2>/dev/null > ~/.zshrc.new; \
        mv ~/.zshrc.new ~/.zshrc; \

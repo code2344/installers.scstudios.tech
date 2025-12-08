@@ -1,6 +1,7 @@
-# ~/.zshrc file for zsh interactive shells.
-# see /usr/share/doc/zsh/examples/zshrc for examples
-
+#####MACTERM V1.0 .ZSHRC BLOCK#####
+# https://scstudios.tech/projects/macterm
+# This was taken from the Kali Linux zshrc modifications. 99% of the credit for this goes to them. I simply modified some symbols.
+# MacTerm is a project by ruben @ SuperCode Studios
 setopt autocd              # change directory just by typing its name
 #setopt correct            # auto correct mistakes
 setopt interactivecomments # allow comments in interactive mode
@@ -256,3 +257,4 @@ fi
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
+#####END MACTERM V1.0 ZSHRC BLOCK#####

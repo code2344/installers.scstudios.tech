@@ -16,10 +16,19 @@ echo "=== Running brew update ==="
 brew update || true
 
 echo "=== Installing packages via brew ==="
-brew install tree wget opencode
+brew install tree wget
+
+echo "=== Installing opencode ==="
+curl -fsSL https://opencode.ai/install | bash
+
+echo "=== Sourcing ~/.zshrc ==="
+source ~/.zshrc
 
 echo "=== Installing Ollama ==="
 curl -fsSL https://ollama.com/install.sh | sh
+
+echo "=== Sourcing ~/.zshrc ==="
+source ~/.zshrc
 
 echo "=== Enabling Safari Developer Tools ==="
 defaults write com.apple.Safari IncludeDevelopMenu -bool true

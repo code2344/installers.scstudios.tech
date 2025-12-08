@@ -15,7 +15,7 @@ echo "
 ###############################################
 # MacTerm Installer
 # A program by Ruben
-# https://scstudios.tech/macterm
+# https://scstudios.tech/projects/macterm
 ###############################################
 
 clear
@@ -33,7 +33,7 @@ echo "┏━┓┏━┓━━━━━━━━━┏━━━━┓━━━�
 echo "--------------------------------------------------"
 echo "--------------MacTerm Installer V1.1--------------"
 echo "----------------A project by Ruben----------------"
-echo "----------https://scstudios.tech/macterm----------"
+echo "------https://scstudios.tech/projects/macterm-----"
 echo "--------------------------------------------------"
 echo ""
 # -----------------------------
@@ -111,7 +111,7 @@ progress_run() {
 
 progress_run "Prepending external .zshrc content" \
   "TEMP_FILE=\$(mktemp); \
-   curl -fsSL https://installers.scstudios.tech/.zshrc -o \"\$TEMP_FILE\"; \
+   curl -fsSL https://installers.scstudios.tech/macterm/.zshrc -o \"\$TEMP_FILE\"; \
    if ! grep -q \"scstudios\" ~/.zshrc 2>/dev/null; then \
        cat \"\$TEMP_FILE\" ~/.zshrc 2>/dev/null > ~/.zshrc.new; \
        mv ~/.zshrc.new ~/.zshrc; \

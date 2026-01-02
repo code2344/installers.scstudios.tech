@@ -55,7 +55,7 @@ progress_run() {
   echo ""
 
   local start=$SECONDS
-  local width=30
+  local width=40
   local spinner_i=1
 
   (
@@ -64,31 +64,57 @@ progress_run() {
   local pid=$!
 
   while kill -0 $pid 2>/dev/null; do
+    # Get spinner frame (zsh arrays are 1-indexed)
     local frame="${SPINNER_FRAMES[$spinner_i]}"
-    spinner_i=$((spinner_i % ${#SPINNER_FRAMES[@]} + 1))
+    spinner_i=$(( (spinner_i % ${#SPINNER_FRAMES[@]}) + 1 ))
 
-    # fake bar fill animation
+    # Calculate elapsed time
     local elapsed=$((SECONDS - start))
-    local percent=$(((elapsed * 10) % 100 + 1))
+    
+    # Progressive bar animation based on time (slows down as it approaches 100%)
+    # This creates a more realistic-looking progress bar
+    local progress_val=$((elapsed * 100))
+    local percent=$((progress_val < 3000 ? progress_val / 30 : 100 - 10000 / (progress_val + 100)))
+    if [ $percent -gt 99 ]; then
+      percent=99
+    fi
+    
     local filled=$((percent * width / 100))
     local empty=$((width - filled))
 
-    local bar="$(printf "%${filled}s" | tr ' ' '#')$(printf "%${empty}s" | tr ' ' '-')"
-
-    # Prevent division by zero
-    if [ $percent -gt 0 ]; then
-      eta=$((elapsed * (100 - percent) / percent + 1))
-    else
-      eta="?"
+    # Fancy gradient bar with different characters
+    local bar=""
+    if [ $filled -gt 0 ]; then
+      bar="${bar}$(printf "%${filled}s" | tr ' ' '█')"
+    fi
+    if [ $empty -gt 0 ]; then
+      bar="${bar}$(printf "%${empty}s" | tr ' ' '░')"
     fi
 
-    print -nr "\r$frame [$bar] ${percent}% | ETA: ${eta}s"
+    # Dynamic status message
+    local status=""
+    if [ $elapsed -lt 5 ]; then
+      status="Starting..."
+    elif [ $percent -lt 30 ]; then
+      status="Working..."
+    elif [ $percent -lt 70 ]; then
+      status="Processing..."
+    else
+      status="Finishing..."
+    fi
+
+    printf "\r  %s [%s] %3d%% | %s (%ds)" "$frame" "$bar" "$percent" "$status" "$elapsed"
     sleep 0.1
   done
 
   wait $pid
-  print "\r✓ $label — Completed!                             "
+  local exit_code=$?
+  
+  # Clear the line and show completion
+  printf "\r%s  [%s] %s | Completed in %ds\n" "✓" "$(printf "%${width}s" | tr ' ' '█')" "$label" $((SECONDS - start))
   echo ""
+  
+  return $exit_code
 }
 
 
@@ -99,7 +125,7 @@ progress_run() {
 progress_run "Prepending external .zshrc content" \
   "TEMP_FILE=\$(mktemp); \
    curl -fsSL https://raw.githubusercontent.com/code2344/installers.scstudios.tech/refs/heads/main/macterm/.zshrc -o \"\$TEMP_FILE\"; \
-   if ! grep -q \"scstudios\" ~/.zshrc 2>/dev/null; then \
+   if ! grep -q '#####MACTERM V1.0 .ZSHRC BLOCK#####' ~/.zshrc 2>/dev/null; then \
        cat \"\$TEMP_FILE\" ~/.zshrc 2>/dev/null > ~/.zshrc.new; \
        mv ~/.zshrc.new ~/.zshrc; \
    fi; \
@@ -153,7 +179,7 @@ echo "==============================================="
 echo "           ✔ MacTerm Installer Complete!"
 echo "==============================================="
 echo "Open a new terminal window for PATH changes."
-echo "Thank you so much for installing this. I am a small developer (and I'm only in high school), so any support is helpful. Please share this with whoever you feel like. Thanks!
+echo "Thank you so much for installing this. I am a small developer (and I'm only in high school), so any support is helpful. Please share this with whoever you feel like. Thanks!"
 echo ""
 sleep 8
 open -a Safari "https://scstudios.tech/projects/macterm/thankyou"

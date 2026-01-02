@@ -27,7 +27,7 @@ echo ""
 # macOS check
 # -----------------------------
 if [[ "$(uname -s)" != "Darwin" ]]; then
-    echo "Thanks for showing intrest in MacTerm. Unfortunately, "
+    echo "Thanks for showing interest in MacTerm. Unfortunately, "
     echo "MacTerm installer only runs on macOS."
     echo "Detected OS: $(uname -s)"
     echo "However, I am in the process of developing a version of this for other systems that use zsh. 
